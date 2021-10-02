@@ -1,5 +1,7 @@
 package fileAccess;
 
+import main.Principal;
+
 import java.io.*;
 
 
@@ -27,7 +29,7 @@ public class FileAccess {
     public void introducirDatosPorDefecto(String cadena,char caracter,double decimal,boolean booleano){
         try(ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(fichero,true));
             MyObjectOutputStream moos=new MyObjectOutputStream(new FileOutputStream(fichero,true))){
-                oos.writeObject(cadena);
+            oos.writeObject(cadena);
             moos.writeChar(caracter);
             moos.writeDouble(decimal);
             moos.writeBoolean(booleano);
@@ -44,17 +46,19 @@ public class FileAccess {
         try(ObjectInputStream ois=new ObjectInputStream(new FileInputStream(fichero));
             ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(fichero2,true));
             MyObjectOutputStream moos=new MyObjectOutputStream(new FileOutputStream(fichero2,true))){
+            ois.readObject();
             oos.writeObject(cadena);
             moos.writeChar(ois.readChar());
             moos.writeDouble(ois.readDouble());
             moos.writeBoolean(ois.readBoolean());
         } catch (FileNotFoundException e) {
-
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         fichero.delete();
-        fichero.renameTo(fichero2);
+        fichero2.renameTo(fichero);
     }
     public void introducirDatosCaracter(char caracter){
         File fichero2=new File("config2.bin");
@@ -62,6 +66,7 @@ public class FileAccess {
             ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(fichero2,true));
             MyObjectOutputStream moos=new MyObjectOutputStream(new FileOutputStream(fichero2,true))){
                 oos.writeObject((String) ois.readObject());
+                ois.readChar();
                 moos.writeChar(caracter);
                 moos.writeDouble(ois.readDouble());
                 moos.writeBoolean(ois.readBoolean());
@@ -72,7 +77,7 @@ public class FileAccess {
             e.printStackTrace();
         }
         fichero.delete();
-        fichero.renameTo(fichero2);
+        fichero2.renameTo(fichero);
     }
     public void introducirDatosDecimal(double decimal){
         File fichero2=new File("config2.bin");
@@ -81,6 +86,7 @@ public class FileAccess {
             MyObjectOutputStream moos=new MyObjectOutputStream(new FileOutputStream(fichero2,true))){
                 oos.writeObject((String) ois.readObject());
                 moos.writeChar(ois.readChar());
+                ois.readDouble();
                 moos.writeDouble(decimal);
                 moos.writeBoolean(ois.readBoolean());
         } catch (FileNotFoundException e) {
@@ -90,7 +96,7 @@ public class FileAccess {
             e.printStackTrace();
         }
         fichero.delete();
-        fichero.renameTo(fichero2);
+        fichero2.renameTo(fichero);
     }
     public void introducirDatosBoolean(boolean booleano){
         File fichero2=new File("config2.bin");
@@ -108,7 +114,7 @@ public class FileAccess {
             e.printStackTrace();
         }
         fichero.delete();
-        fichero.renameTo(fichero2);
+        fichero2.renameTo(fichero);
     }
 
 
@@ -126,7 +132,6 @@ public class FileAccess {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        System.out.println(String.format("Los datos son: \n String: %s \n Boolean: %b \n Caracter: %c \n Double: %f"
-        ,cadena,booleano,caracter,decimal));
+        Principal.opcionMostrarDatos(cadena,caracter,decimal,booleano);
     }
 }
