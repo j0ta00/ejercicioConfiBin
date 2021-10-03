@@ -8,8 +8,11 @@ import java.util.Scanner;
 
 public class Principal {
     static Vista dialog;
+    static FileAccess fa=new  FileAccess("config.bin");
+
 
     public static void main(String[] args) {
+        fa.introducirDatosPorDefecto("dfsfsdf",'d',4,true);
         dialog = new Vista();
         dialog.pack();
         dialog.setVisible(true);
@@ -17,23 +20,18 @@ public class Principal {
     }
 
     public static void opcionCambiarCadena(String cadena){
-        FileAccess fa=new  FileAccess("config.bin");
         fa.introducirDatosCadena(cadena);
     }
     public static void opcionCambiarCaracter(char caracter){
-        FileAccess fa=new  FileAccess("config.bin");
         fa.introducirDatosCaracter(caracter);
     }
     public static void opcionCambiarDecimal(double decimal){
-        FileAccess fa=new  FileAccess("config.bin");
         fa.introducirDatosDecimal(decimal);
     }
     public static void opcionCambiarBooleano(boolean booleano){
-        FileAccess fa=new  FileAccess("config.bin");
         fa.introducirDatosBoolean(booleano);
     }
     public static void LlamarALeerDatos(){
-        FileAccess fa=new  FileAccess("config.bin");
         fa.leerDatos();
     }
     public static void opcionMostrarDatos(String cadena,char caracter,double decimalm,boolean booleano){

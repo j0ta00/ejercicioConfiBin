@@ -6,6 +6,7 @@ import main.Principal;
 import javax.swing.*;
 import java.awt.event.*;
 import java.nio.channels.IllegalBlockingModeException;
+import java.util.Locale;
 
 public class Vista extends JDialog {
     private JPanel contentPane;
@@ -95,10 +96,11 @@ public class Vista extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 boolean booleano=true;
                 if(!txtBooleano.getText().isEmpty()) {
-                    if(txtBooleano.getText()==("false")){
+                    if(txtBooleano.getText().toLowerCase(Locale.ROOT).equals("false")){
                         booleano=false;
                     }
                 }
+
                 Principal.opcionCambiarBooleano(booleano);
             }
         });
@@ -120,7 +122,7 @@ public class Vista extends JDialog {
         dispose();
     }
     public void mostrarDatos(String cadena,char caracter,double decimalm,boolean booleano){
-        lblDatos.setText("Los datos son:" +
-                "\n Cadena:"+cadena+"\n caracter"+caracter+"\n decimal"+decimalm+"\n booleano"+booleano);
+        lblDatos.setText(String.format("Los datos son: \n Cadena: %s \n carácter: %s \n decimal: %s \n booleano: %s",cadena,String.valueOf(caracter),
+                String.valueOf(decimalm),String.valueOf(booleano)));
     }
 }

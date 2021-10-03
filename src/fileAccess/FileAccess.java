@@ -125,8 +125,8 @@ public class FileAccess {
            o=ois.readObject();
            cadena=(String) o.toString();
            caracter=ois.readChar();
-           booleano=ois.readBoolean();
            decimal=ois.readDouble();
+            booleano=ois.readBoolean();
         }catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
